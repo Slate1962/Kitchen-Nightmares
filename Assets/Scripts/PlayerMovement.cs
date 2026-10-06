@@ -5,10 +5,31 @@ public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
     public float moveSpeed = 5f;
+    private Crate nearbyCrate; 
+    private Ingredient heldIngredient;
+    public Transform frontPoint;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Crate crate = other.GetComponent<Crate>();
+        if (crate != null)
+        {
+            nearbyCrate = crate;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        Crate crate = other.GetComponent<Crate>();
+        if (crate != null)
+        {
+            nearbyCrate = null;
+        }
     }
 
     void Update()
@@ -30,5 +51,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
         controller.Move(direction * moveSpeed * Time.deltaTime);
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        { 
+            if (heldIngredient == null && nearbyCrate != null)
+            {
+                GameObject newIngredientObject = Instantiate(nearbyCrate.ingredientPrefab);
+                heldIngredient = newIngredientObject.GetComponent<Ingredient>();
+
+                newIngredientObject.transform.SetParent(frontPoint);
+                newIngredientObject.transform.localPosition = Vector3.zero;
+                newIngredientObject.transform.localRotation = Quaternion.identity;
+
+                heldIngredient.type = nearbyCrate.ingredientType;
+                heldIngredient.needsChopping = nearbyCrate.needsChopping;
+                heldIngredient.needsCooking = nearbyCrate.needsCooking;
+            }
+        }
     }
 }
