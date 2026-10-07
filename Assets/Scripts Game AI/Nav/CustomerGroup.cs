@@ -21,10 +21,22 @@ public class CustomerGroup : MonoBehaviour
     private float waitCheckTimer = 0f;
     private float checkInterval = 2f;
 
+    public GameObject CustomerPrefab;
+
     private void Start()
     {
         tableManager = FindAnyObjectByType<TableManager>();
-        groupSize = Random.Range(1, 5);
+        groupSize = Random.Range(1, 4);
+
+        SpawnCustomers();
+    }
+
+    private void SpawnCustomers()
+    {
+        for (int i = 0; i < groupSize; i++)
+        {
+            Instantiate(CustomerPrefab, transform.position, Quaternion.identity, transform);
+        }
     }
 
     private void Update()
