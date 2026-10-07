@@ -28,6 +28,7 @@ public class CustomerGroup : MonoBehaviour
     private void Start()
     {
         tableManager = FindAnyObjectByType<TableManager>();
+        //Groupsize = 1, n-1
         groupSize = Random.Range(1, 5);
 
         SpawnCustomers();
@@ -38,7 +39,6 @@ public class CustomerGroup : MonoBehaviour
         for (int i = 0; i < groupSize; i++)
         {
             Vector3 randomSpawnOffset = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-
             Vector3 spawnPos = transform.position + randomSpawnOffset;
 
             GameObject newCustomer = Instantiate(CustomerPrefab, transform.position, Quaternion.identity, transform);
