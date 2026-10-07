@@ -8,8 +8,6 @@ using static UnityEngine.GraphicsBuffer;
 public class RecipeMaker : MonoBehaviour
 {
     System.Random rng = new System.Random();
-
-    public int test = 5;
     int maxBurgerIngredients = 13;
     List<string> burgerIngredients = new List<string>();
     public string recipe;
