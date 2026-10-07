@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
 
 
 public class CustomerGroup : MonoBehaviour
@@ -15,18 +16,19 @@ public class CustomerGroup : MonoBehaviour
 
     public GroupState currentState = GroupState.waitingForTable;
     public int groupSize;
+    public GameObject CustomerPrefab;
 
     private TableManager tableManager;
     private Table assignedTable;
-    private float waitCheckTimer = 0f;
+    private float waitCheckTimer = 0.5f;
     private float checkInterval = 2f;
 
-    public GameObject CustomerPrefab;
+    private List<NavMeshAgent> agents = new List<NavMeshAgent>();
 
     private void Start()
     {
         tableManager = FindAnyObjectByType<TableManager>();
-        groupSize = Random.Range(1, 4);
+        groupSize = Random.Range(1, 5);
 
         SpawnCustomers();
     }
@@ -35,7 +37,17 @@ public class CustomerGroup : MonoBehaviour
     {
         for (int i = 0; i < groupSize; i++)
         {
-            Instantiate(CustomerPrefab, transform.position, Quaternion.identity, transform);
+            Vector3 randomSpawnOffset = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+
+            Vector3 spawnPos = transform.position + randomSpawnOffset;
+
+            GameObject newCustomer = Instantiate(CustomerPrefab, transform.position, Quaternion.identity, transform);
+
+            NavMeshAgent agent = newCustomer.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                agents.Add(agent);
+            }
         }
     }
 
@@ -59,10 +71,11 @@ public class CustomerGroup : MonoBehaviour
             if(assignedTable != null)
             {
                 currentState = GroupState.walkingToTable;
+                //Debug.Log($"Group of {groupSize} spawned. Agents in list: {agents.Count}");
 
-                NavMeshAgent[] agents = GetComponentsInChildren<NavMeshAgent>();
+                //NavMeshAgent[] agents = GetComponentsInChildren<NavMeshAgent>();
 
-                for (int i = 0; i < agents.Length; i++)
+                for (int i = 0; i < agents.Count; i++)
                 {
                     if (i < assignedTable.Seats.Length)
                     {
