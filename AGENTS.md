@@ -2,7 +2,7 @@
 - Project name: Kitchen-Nightmares
 - Unity version: Unity 6000.6.3f1
 - Active game object:
-  - Name: Customer
+  - Name: Cube
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
