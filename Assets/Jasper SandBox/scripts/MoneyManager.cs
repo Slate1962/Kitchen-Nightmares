@@ -37,7 +37,7 @@ public class MoneyManager : MonoBehaviour
 
     
 
-    void Update()
+    public void Getmoney()
     {
     if (Keyboard.current.spaceKey.wasPressedThisFrame)
     Debug.Log("Debug: Space key pressed");
