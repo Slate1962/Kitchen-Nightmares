@@ -1,0 +1,57 @@
+{
+    "version": 1,
+    "name": "TestControls",
+    "maps": [
+        {
+            "name": "NavTest",
+            "id": "a6b4caa9-b805-4b20-bcc9-57d72b7ccb8e",
+            "actions": [
+                {
+                    "name": "MoveToPosition",
+                    "type": "Button",
+                    "id": "75c45801-f777-4e7d-a29b-4af3531d2cc6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
+                    "name": "PointerPosition",
+                    "type": "Value",
+                    "id": "c271cf4b-5b81-4aea-a07f-2821056db271",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4bec9bbb-2dd7-449e-8b32-a8108f699334",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveToPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4fe351b8-55ad-4afa-96a8-ed49744744b1",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PointerPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
