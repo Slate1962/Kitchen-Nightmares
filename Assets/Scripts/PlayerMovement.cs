@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     public float moveSpeed = 5f;
     private List<Crate> nearbyCrates = new List<Crate>();
-    private List<Table> nearbyTables = new List<Table>();
+    private List<TableCC> nearbyTables = new List<TableCC>();
     private Ingredient heldIngredient;
     public Transform frontPoint;
 
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
             nearbyCrates.Add(crate);
         }
 
-        Table table = other.GetComponent<Table>();
+        TableCC table = other.GetComponent<TableCC>();
         if (table != null)
         {
             nearbyTables.Add(table);
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
             nearbyCrates.Remove(crate);
         }
 
-        Table table = other.GetComponent<Table>();
+        TableCC table = other.GetComponent<TableCC>();
         if (table != null)
         {
             nearbyTables.Remove(table);
@@ -64,12 +64,12 @@ public class PlayerMovement : MonoBehaviour
         return closest;
     }
 
-    Table GetClosestTable()
+    TableCC GetClosestTable()
     {
-        Table closest = null;
+        TableCC closest = null;
         float closestDistance = Mathf.Infinity;
 
-        foreach (Table table in nearbyTables)
+        foreach (TableCC table in nearbyTables)
         {
             float distance = Vector3.Distance(transform.position, table.transform.position);
             if (distance < closestDistance)
@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             Crate nearbyCrate = GetClosestCrate();
-            Table nearbyTable = GetClosestTable();
+            TableCC nearbyTable = GetClosestTable();
 
             if (heldIngredient == null && nearbyCrate != null)
             {

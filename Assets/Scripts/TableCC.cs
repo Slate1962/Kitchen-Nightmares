@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Table : MonoBehaviour
+public class TableCC : MonoBehaviour
 {
     public Ingredient heldIngredient;
     public Transform placePoint;
