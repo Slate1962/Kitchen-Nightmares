@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,8 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
     public float moveSpeed = 5f;
-    private List<Crate> nearbyCrates = new List<Crate>();
-    private List<Table> nearbyTables = new List<Table>();
+    private Crate nearbyCrate; 
     private Ingredient heldIngredient;
     public Transform frontPoint;
 
@@ -21,13 +19,7 @@ public class PlayerMovement : MonoBehaviour
         Crate crate = other.GetComponent<Crate>();
         if (crate != null)
         {
-            nearbyCrates.Add(crate);
-        }
-
-        Table table = other.GetComponent<Table>();
-        if (table != null)
-        {
-            nearbyTables.Add(table);
+            nearbyCrate = crate;
         }
     }
 
@@ -36,50 +28,8 @@ public class PlayerMovement : MonoBehaviour
         Crate crate = other.GetComponent<Crate>();
         if (crate != null)
         {
-            nearbyCrates.Remove(crate);
+            nearbyCrate = null;
         }
-
-        Table table = other.GetComponent<Table>();
-        if (table != null)
-        {
-            nearbyTables.Remove(table);
-        }
-    }
-
-    Crate GetClosestCrate()
-    {
-        Crate closest = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (Crate crate in nearbyCrates)
-        {
-            float distance = Vector3.Distance(transform.position, crate.transform.position);
-            if (distance < closestDistance)
-            {
-                closest = crate;
-                closestDistance = distance;
-            }
-        }
-
-        return closest;
-    }
-
-    Table GetClosestTable()
-    {
-        Table closest = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (Table table in nearbyTables)
-        {
-            float distance = Vector3.Distance(transform.position, table.transform.position);
-            if (distance < closestDistance)
-            {
-                closest = table;
-                closestDistance = distance;
-            }
-        }
-
-        return closest;
     }
 
     void Update()
@@ -103,10 +53,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(direction * moveSpeed * Time.deltaTime);
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            Crate nearbyCrate = GetClosestCrate();
-            Table nearbyTable = GetClosestTable();
-
+        { 
             if (heldIngredient == null && nearbyCrate != null)
             {
                 GameObject newIngredientObject = Instantiate(nearbyCrate.ingredientPrefab);
@@ -119,24 +66,6 @@ public class PlayerMovement : MonoBehaviour
                 heldIngredient.type = nearbyCrate.ingredientType;
                 heldIngredient.needsChopping = nearbyCrate.needsChopping;
                 heldIngredient.needsCooking = nearbyCrate.needsCooking;
-            }
-            else if (heldIngredient != null && nearbyTable != null && nearbyTable.heldIngredient == null)
-            {
-                heldIngredient.transform.SetParent(nearbyTable.placePoint);
-                heldIngredient.transform.localPosition = Vector3.zero;
-                heldIngredient.transform.localRotation = Quaternion.identity;
-
-                nearbyTable.heldIngredient = heldIngredient;
-                heldIngredient = null;
-            }
-            else if (heldIngredient == null && nearbyTable != null && nearbyTable.heldIngredient != null)
-            {
-                heldIngredient = nearbyTable.heldIngredient;
-                nearbyTable.heldIngredient = null;
-
-                heldIngredient.transform.SetParent(frontPoint);
-                heldIngredient.transform.localPosition = Vector3.zero;
-                heldIngredient.transform.localRotation = Quaternion.identity;
             }
         }
     }
