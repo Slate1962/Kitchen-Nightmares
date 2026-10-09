@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8980206466116812230}
   - component: {fileID: 2103142526127956304}
   - component: {fileID: 8201639151353966699}
-  - component: {fileID: 4884242474910874863}
   - component: {fileID: 5784435340170978240}
+  - component: {fileID: -7014154917690307863}
   m_Layer: 0
   m_Name: Table Test 1
   m_TagString: Untagged
@@ -115,20 +115,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4884242474910874863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5071960687234249853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e1f5cecefcd3041942449830747513, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Table
-  heldIngredient: {fileID: 0}
-  placePoint: {fileID: 4737271609336612345}
 --- !u!65 &5784435340170978240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -150,6 +136,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-7014154917690307863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5071960687234249853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57a64a8e5c48d342b594818281fd37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TableCC
+  heldItem: {fileID: 0}
+  placePoint: {fileID: 0}
 --- !u!1 &7842820480922933853
 GameObject:
   m_ObjectHideFlags: 0
