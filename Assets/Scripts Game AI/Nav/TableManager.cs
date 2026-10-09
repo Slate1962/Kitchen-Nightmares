@@ -7,6 +7,8 @@ public class TableManager : MonoBehaviour
 
     public Table RequestTable(int groupSize)
     {
+
+
         foreach (Table table in allTables)
         {
             if(table.ReserveSeat(groupSize))

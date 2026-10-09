@@ -526,7 +526,7 @@ GameObject:
   - component: {fileID: 298755198}
   - component: {fileID: 298755197}
   - component: {fileID: 298755196}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Table (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -998,7 +998,7 @@ GameObject:
   - component: {fileID: 494336701}
   - component: {fileID: 494336700}
   - component: {fileID: 494336699}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Table (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1733,8 +1733,8 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
+    m_Bits: 55
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -4046,7 +4046,7 @@ GameObject:
   - component: {fileID: 2120000769}
   - component: {fileID: 2120000768}
   - component: {fileID: 2120000767}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Table (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4422,6 +4422,10 @@ PrefabInstance:
     - target: {fileID: 4302765241876075244, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
       propertyPath: m_Name
       value: Table
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302765241876075244, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4846461981136489031, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
       propertyPath: m_LocalPosition.x
