@@ -1,30 +1,20 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class ContainerCounter : MonoBehaviour
+public class ContainerCounter : InteractableCC
 {
+    [SerializeField] private FoodSO kitchenObjectSO; // sleep hier je FoodSO asset in
 
-
-    [SerializeField] private FoodSO kitchenObjectSO;            // sleep hier je FoodSO asset in
-    [SerializeField] private Transform SpawnPoint;  // waar het object verschijnt
-
-
-    void Update()
+    public override bool CanInteract(PlayerMovement player)
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            SpawnFood();
-        }
-
+        return player.HeldItem == null;
     }
 
-    public void SpawnFood()
+    public override void Interact(PlayerMovement player)
     {
+        Transform spawned = Instantiate(kitchenObjectSO.prefab);
+        FoodObjects food = spawned.GetComponent<FoodObjects>();
 
-        Transform KitchenObjectTransform = Instantiate(kitchenObjectSO.prefab, SpawnPoint);
-        KitchenObjectTransform.localPosition = Vector3.zero; 
-        Debug.Log(KitchenObjectTransform.GetComponent<FoodObjects>().GetKitchenObjectSO().foodName);
-
+        player.PickUp(food);
+        Debug.Log(food.GetKitchenObjectSO().foodName);
     }
-
 }

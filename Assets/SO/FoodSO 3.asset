@@ -15,7 +15,6 @@ MonoBehaviour:
   prefab: {fileID: 8782799250838801855, guid: 20288e39d2157884b81bb36e28058b65, type: 3}
   foodName: Burger Done
   foodSprite: {fileID: 0}
-  cookTime: 0
-  burnTime: 0
+  friedVersion: {fileID: 0}
   slicedVersion: {fileID: 0}
-  cuttingProgressMax: 10
+  cuttingProgressMax: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FoodObjects : MonoBehaviour
+public class FoodObjects : CarryableCC
 {
     [SerializeField] private FoodSO kitchenObjectSO;
 
