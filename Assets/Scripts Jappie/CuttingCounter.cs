@@ -1,11 +1,9 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class CuttingCounter : MonoBehaviour, IHasProgress
+public class CuttingCounter : InteractableCC, IHasProgress
 {
     [SerializeField] private Transform cuttingPoint;
-    [SerializeField] private FoodSO debugFoodSO; // alleen om te testen met Space
 
     public event Action<float> OnProgressChanged;    // 0 tot 1
     public event Action<bool> OnFoodPresenceChanged; // true = balk tonen
@@ -14,25 +12,36 @@ public class CuttingCounter : MonoBehaviour, IHasProgress
     private int cuttingProgress;
     private bool isSliced;
 
-    void Update()
+    // E: neerleggen of terugpakken
+    public override bool CanInteract(PlayerMovement player)
     {
-        if (Keyboard.current.backspaceKey.wasPressedThisFrame) SliceFood();
+        if (player.HeldItem != null)
+            return currentFood == null && player.HeldItem is FoodObjects;
 
-        // Simuleert dat de speler iets neerlegt
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && debugFoodSO != null)
-        {
-            Transform spawned = Instantiate(debugFoodSO.prefab);
-            if (!PlaceFood(spawned.GetComponent<FoodObjects>()))
-                Destroy(spawned.gameObject); // er lag al iets, dus geen losse kopie laten rondzweven
-        }
+        return currentFood != null;
     }
 
-    public bool HasFood() => currentFood != null;
-
-    public bool PlaceFood(FoodObjects food)
+    public override void Interact(PlayerMovement player)
     {
-        if (currentFood != null) return false;
+        if (player.HeldItem != null)
+            PlaceFood((FoodObjects)player.Release());
+        else
+            player.PickUp(TakeFood());
+    }
 
+    // F: snijden
+    public override bool CanInteractAlternate(PlayerMovement player)
+    {
+        return currentFood != null && !isSliced && CanBeSliced(currentFood);
+    }
+
+    public override void InteractAlternate(PlayerMovement player)
+    {
+        SliceFood();
+    }
+
+    private void PlaceFood(FoodObjects food)
+    {
         currentFood = food;
         isSliced = false;
         food.transform.SetParent(cuttingPoint);
@@ -40,18 +49,16 @@ public class CuttingCounter : MonoBehaviour, IHasProgress
         food.transform.localRotation = Quaternion.identity;
 
         ResetProgress();
-        OnFoodPresenceChanged?.Invoke(CanBeSliced(food)); // balk tonen
-        return true;
+        OnFoodPresenceChanged?.Invoke(CanBeSliced(food));
     }
-public FoodObjects TakeFood()
-    {
-        if (currentFood == null) return null;
 
+    private FoodObjects TakeFood()
+    {
         FoodObjects food = currentFood;
         currentFood = null;
         isSliced = false;
         ResetProgress();
-        OnFoodPresenceChanged?.Invoke(false); // balk verbergen
+        OnFoodPresenceChanged?.Invoke(false);
         return food;
     }
 
@@ -60,16 +67,12 @@ public FoodObjects TakeFood()
         return food.GetKitchenObjectSO().slicedVersion != null;
     }
 
-    public void SliceFood()
+    private void SliceFood()
     {
-        if (currentFood == null || isSliced) return;
-
         FoodSO currentSO = currentFood.GetKitchenObjectSO();
-        if (currentSO.slicedVersion == null) return;
 
         cuttingProgress++;
         OnProgressChanged?.Invoke((float)cuttingProgress / currentSO.cuttingProgressMax);
-        Debug.Log("Snee " + cuttingProgress + "/" + currentSO.cuttingProgressMax);
 
         if (cuttingProgress >= currentSO.cuttingProgressMax)
         {
@@ -82,7 +85,7 @@ public FoodObjects TakeFood()
 
             isSliced = true;
             ResetProgress();
-            OnFoodPresenceChanged?.Invoke(false); // klaar: balk weg
+            OnFoodPresenceChanged?.Invoke(false);
         }
     }
 

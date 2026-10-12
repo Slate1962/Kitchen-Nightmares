@@ -52,28 +52,28 @@ public class PlayerMovement : MonoBehaviour
         return item;
     }
 
-    InteractableCC GetClosestInteractable()
+InteractableCC GetClosestInteractable(bool alternate)
+{
+    InteractableCC closest = null;
+    float closestDistance = Mathf.Infinity;
+
+    foreach (InteractableCC interactable in nearbyInteractables)
     {
-        InteractableCC closest = null;
-        float closestDistance = Mathf.Infinity;
+        bool usable = alternate
+            ? interactable.CanInteractAlternate(this)
+            : interactable.CanInteract(this);
+        if (!usable) continue;
 
-        foreach (InteractableCC interactable in nearbyInteractables)
+        float distance = Vector3.Distance(transform.position, interactable.transform.position);
+        if (distance < closestDistance)
         {
-            if (!interactable.CanInteract(this))
-            {
-                continue;
-            }
-
-            float distance = Vector3.Distance(transform.position, interactable.transform.position);
-            if (distance < closestDistance)
-            {
-                closest = interactable;
-                closestDistance = distance;
-            }
+            closest = interactable;
+            closestDistance = distance;
         }
-
-        return closest;
     }
+
+    return closest;
+}
 
     void Update()
     {
@@ -96,14 +96,15 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(direction * moveSpeed * Time.deltaTime);
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            InteractableCC target = GetClosestInteractable();
-            Debug.Log("Nearby: " + nearbyInteractables.Count + " | Target: " + target + " | Held: " + HeldItem);
+    {
+         InteractableCC target = GetClosestInteractable(false);
+        if (target != null) target.Interact(this);
+}
 
-            if (target != null)
-            {
-                target.Interact(this);
-            }
-        }
+        if (Keyboard.current.fKey.wasPressedThisFrame)
+    {
+    InteractableCC target = GetClosestInteractable(true);
+    if (target != null) target.InteractAlternate(this);
+    }
     }
 }

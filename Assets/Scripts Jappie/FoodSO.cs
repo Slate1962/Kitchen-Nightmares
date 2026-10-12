@@ -7,8 +7,7 @@ public class FoodSO : ScriptableObject
     public Transform prefab;
     public string foodName;
     public Sprite foodSprite;
-    public float cookTime;
-    public float burnTime;
+    public FoodSO friedVersion;
     public FoodSO slicedVersion;
     public int cuttingProgressMax = 3;
 
