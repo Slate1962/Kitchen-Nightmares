@@ -66,7 +66,7 @@ public class CustomerGroup : MonoBehaviour
         waitCheckTimer -= Time.deltaTime;
         if (waitCheckTimer <= 0)
         {
-            assignedTable = tableManager.RequestTable(groupSize);
+            assignedTable = tableManager.RequestTable(groupSize, transform.position);
 
             if(assignedTable != null)
             {
