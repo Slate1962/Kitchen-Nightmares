@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class TableManager : MonoBehaviour
 {
@@ -12,11 +11,11 @@ public class TableManager : MonoBehaviour
         int smallestCount = int.MaxValue;
         float closestDistance = float.MaxValue;
 
-        foreach (Table table in allTables)
+        foreach (Table table in allTables)//check of all tables
         {
             if(!table.isOccupied && table.Seats.Length >= groupSize)
             {
-                float distanceToTable = Vector3.Distance(requesterPosition, table.transform.position);
+                float distanceToTable = Vector3.Distance(requesterPosition, table.transform.position); //calculation of table distance
 
                 if(table.Seats.Length < smallestCount)
                 {   
@@ -34,9 +33,9 @@ public class TableManager : MonoBehaviour
 
         if (bestTable != null)
         {
-            bestTable.ReserveSeat(groupSize);
+            bestTable.ReserveSeat(groupSize); //mark table as taken/reserved
             return bestTable;
         }
-        return null;
+        return null; //if no table is according to criteria return null
     }
 }
