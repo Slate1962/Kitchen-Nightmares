@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad616b6b57021744ba389315b6f5720, type: 3}
   m_Name: FoodSO
   m_EditorClassIdentifier: Assembly-CSharp::FoodSO
-  prefab: {fileID: 5492748025453875627, guid: cb0dbcd7b5420d04a8dbdcba1ea4c582, type: 3}
+  prefab: {fileID: 3812876574508226176, guid: 81e9fe7b3cd084242a088e945f531f38, type: 3}
   foodName: tomato
   foodSprite: {fileID: 0}
-  cookTime: 0
-  burnTime: 0
+  friedVersion: {fileID: 0}
   slicedVersion: {fileID: 11400000, guid: 356137795007c47489d82c86fb32745c, type: 2}
   cuttingProgressMax: 10

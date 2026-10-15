@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad616b6b57021744ba389315b6f5720, type: 3}
   m_Name: FoodSO 3
   m_EditorClassIdentifier: Assembly-CSharp::FoodSO
-  prefab: {fileID: 8782799250838801855, guid: 20288e39d2157884b81bb36e28058b65, type: 3}
+  prefab: {fileID: 3812876574508226176, guid: e879ff1414d1dd64c9ad7b04bffdfaef, type: 3}
   foodName: Burger Done
   foodSprite: {fileID: 0}
   friedVersion: {fileID: 0}
