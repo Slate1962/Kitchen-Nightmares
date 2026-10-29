@@ -2,10 +2,7 @@ using UnityEngine;
 
 public class Crate : InteractableCC
 {
-    public IngredientType ingredientType;
-    public bool needsChopping;
-    public bool needsCooking;
-    public GameObject ingredientPrefab;
+    public FoodSO food;
 
     public override bool CanInteract(PlayerMovement player)
     {
@@ -14,13 +11,21 @@ public class Crate : InteractableCC
 
     public override void Interact(PlayerMovement player)
     {
-        GameObject newObject = Instantiate(ingredientPrefab);
-        Ingredient ingredient = newObject.GetComponent<Ingredient>();
+        if (food == null || food.prefab == null)
+        {
+            Debug.LogError(name + " has no food or no prefab assigned");
+            return;
+        }
 
-        ingredient.type = ingredientType;
-        ingredient.needsChopping = needsChopping;
-        ingredient.needsCooking = needsCooking;
+        Transform foodTransform = Instantiate(food.prefab);
+        Ingredient ingredient = foodTransform.GetComponent<Ingredient>();
 
+        if (ingredient == null)
+        {
+            ingredient = foodTransform.gameObject.AddComponent<Ingredient>();
+        }
+
+        ingredient.food = food;
         player.PickUp(ingredient);
     }
 }

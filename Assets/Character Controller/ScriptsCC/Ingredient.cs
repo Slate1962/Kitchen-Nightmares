@@ -4,5 +4,7 @@ public class Ingredient : CarryableCC
 {
     public IngredientType type;
     public bool needsChopping;
-    public bool needsCooking; 
+    public bool needsCooking;
+
+    public FoodSO food;
 }
