@@ -6,9 +6,9 @@
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI, NPC
+    - Default, TransparentFX, Ignore Raycast, IgnoreNavmesh, Water, UI, NPC
 - Active game object:
-  - Name: Stove
+  - Name: CrateCC
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
