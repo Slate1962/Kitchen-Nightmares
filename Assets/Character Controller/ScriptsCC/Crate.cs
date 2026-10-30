@@ -18,14 +18,15 @@ public class Crate : InteractableCC
         }
 
         Transform foodTransform = Instantiate(food.prefab);
-        Ingredient ingredient = foodTransform.GetComponent<Ingredient>();
+        FoodObjects foodObject = foodTransform.GetComponent<FoodObjects>();
 
-        if (ingredient == null)
+        if (foodObject == null)
         {
-            ingredient = foodTransform.gameObject.AddComponent<Ingredient>();
+            Debug.LogError(food.name + " prefab has no FoodObjects component");
+            Destroy(foodTransform.gameObject);
+            return;
         }
 
-        ingredient.food = food;
-        player.PickUp(ingredient);
+        player.PickUp(foodObject);
     }
 }
