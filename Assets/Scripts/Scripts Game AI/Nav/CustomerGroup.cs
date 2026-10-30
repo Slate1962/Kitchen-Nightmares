@@ -12,7 +12,6 @@ public class CustomerGroup : MonoBehaviour
         walkingToTable,
         Ordering,
         Service,
-        Delivered,
         Eating,
         Leaving
     }
@@ -28,13 +27,15 @@ public class CustomerGroup : MonoBehaviour
 
     private TableManager tableManager;
     private Table assignedTable;
+    private ScoreManager scoreManager;
 
     [Header("Timers")] //timers for different states of customer
     [SerializeField] private float orderDuration = 5f;
     [SerializeField] private float patience = 45f;
     [SerializeField] private float eatingDuration = 5f;
 
-    private bool foundTable = false;
+    [Header("CustomerStatus")]
+    public bool isSatisfied = false;
 
     //timers for prevention of constant frame running code
     private float waitCheckTimer = 0.5f;
@@ -46,6 +47,7 @@ public class CustomerGroup : MonoBehaviour
     private void Start()
     {
         tableManager = FindAnyObjectByType<TableManager>();
+        scoreManager = FindAnyObjectByType<ScoreManager>();
         groupSize = Random.Range(1, 5);
 
         SpawnCustomers();
@@ -95,7 +97,16 @@ public class CustomerGroup : MonoBehaviour
             case GroupState.Leaving:
                 if (CheckAllCustomersArrived())
                 {
-                    Destroy(gameObject);
+                    if(isSatisfied)
+                    {
+                        scoreManager.AddCoins(5);
+                        scoreManager.GainReputation();
+                    }
+                    else
+                    {
+                        scoreManager.LoseReputation(1);
+                    }
+                        Destroy(gameObject);
                 }
                 break;
         }
@@ -119,7 +130,6 @@ public class CustomerGroup : MonoBehaviour
                         if (agents[i].isOnNavMesh) //check whether or not agent is on navmesh
                         {
                             agents[i].SetDestination(assignedTable.Seats[i].position); //tell customer to go to their seat
-                            foundTable = true;
                         }
                         else
                         {
@@ -164,7 +174,7 @@ public class CustomerGroup : MonoBehaviour
             }
         }
     }
-
+    [ContextMenu("Deliver Food")]
     public void ReceiveFood()
     {
         if(currentState == GroupState.Service)
@@ -181,6 +191,8 @@ public class CustomerGroup : MonoBehaviour
         if (stateTimer <= 0)
         {
             if (assignedTable != null) assignedTable.ClearTable();
+
+            isSatisfied = true;
 
             foreach (NavMeshAgent agent in agents)
             {
