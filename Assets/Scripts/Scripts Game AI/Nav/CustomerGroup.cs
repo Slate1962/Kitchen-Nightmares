@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
+using System.Data;
 
 
 public class CustomerGroup : MonoBehaviour
@@ -29,8 +30,8 @@ public class CustomerGroup : MonoBehaviour
     private Table assignedTable;
 
     [Header("Timers")] //timers for different states of customer
-    [SerializeField] private float orderDuration = 2f;
-    [SerializeField] private float patience = 10f;
+    [SerializeField] private float orderDuration = 5f;
+    [SerializeField] private float patience = 45f;
     [SerializeField] private float eatingDuration = 5f;
 
     private bool foundTable = false;
@@ -85,6 +86,9 @@ public class CustomerGroup : MonoBehaviour
             case GroupState.Ordering:
                 HandleOrdering();
                 break;
+            case GroupState.Service:
+                HandleService();
+                break;
             case GroupState.Eating:
                 HandleEating();
                 break;
@@ -136,7 +140,38 @@ public class CustomerGroup : MonoBehaviour
         if (stateTimer <= 0)
         {
             Debug.Log("Group ordered, waiting for food");
+            currentState = GroupState.Service;
             stateTimer = patience;
+        }
+    }
+
+    private void HandleService()
+    {
+        stateTimer -= Time.deltaTime;
+        if (stateTimer <= 0)
+        {
+            Debug.Log("Waited too long for food");
+            if (assignedTable != null) assignedTable.ClearTable();
+            {
+                foreach (NavMeshAgent agent in agents)
+                {
+                    if (agent.isOnNavMesh && SpawnLocation != null)
+                    {
+                        agent.SetDestination(SpawnLocation.position);
+                    }
+                }
+                currentState = GroupState.Leaving;
+            }
+        }
+    }
+
+    public void ReceiveFood()
+    {
+        if(currentState == GroupState.Service)
+        {
+            Debug.Log("Food Arrived");
+            currentState = GroupState.Eating;
+            stateTimer = eatingDuration;
         }
     }
 
@@ -159,12 +194,14 @@ public class CustomerGroup : MonoBehaviour
     }
     private bool CheckAllCustomersArrived()
     {
+        float arrivalbuffer = (currentState == GroupState.Leaving) ? 2.0f : 5.0f;
+
         foreach (NavMeshAgent agent in agents)
         {
             if (agent.pathPending) return false;
 
             float distancetoTarget = Vector3.Distance(agent.transform.position, agent.destination);
-            if (distancetoTarget > agent.stoppingDistance + 0.1f)
+            if (distancetoTarget > agent.stoppingDistance + arrivalbuffer)
                 return false;
         }
         return true;
