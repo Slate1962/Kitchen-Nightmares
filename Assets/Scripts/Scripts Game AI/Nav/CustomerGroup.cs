@@ -10,6 +10,8 @@ public class CustomerGroup : MonoBehaviour
         waitingForTable,
         walkingToTable,
         Ordering,
+        Service,
+        Delivered,
         Eating,
         Leaving
     }
@@ -20,8 +22,8 @@ public class CustomerGroup : MonoBehaviour
     [Header("Prefab")]
     public GameObject CustomerPrefab;
 
-    [Header("ExitDestination")]
-    public Transform exitLocation;
+    [Header("Destination")]
+    public Transform SpawnLocation;
 
     private TableManager tableManager;
     private Table assignedTable;
@@ -31,9 +33,12 @@ public class CustomerGroup : MonoBehaviour
     [SerializeField] private float patience = 10f;
     [SerializeField] private float eatingDuration = 5f;
 
+    private bool foundTable = false;
+
     //timers for prevention of constant frame running code
     private float waitCheckTimer = 0.5f;
     private float checkInterval = 2f;
+    private float stateTimer = 0f;
 
     private List<NavMeshAgent> agents = new List<NavMeshAgent>();
 
@@ -70,6 +75,25 @@ public class CustomerGroup : MonoBehaviour
             case GroupState.waitingForTable:
                 HandleWaiting();
                 break;
+            case GroupState.walkingToTable:
+                if (CheckAllCustomersArrived())
+                {
+                    currentState = GroupState.Ordering;
+                    stateTimer = orderDuration;
+                }
+                break;
+            case GroupState.Ordering:
+                HandleOrdering();
+                break;
+            case GroupState.Eating:
+                HandleEating();
+                break;
+            case GroupState.Leaving:
+                if (CheckAllCustomersArrived())
+                {
+                    Destroy(gameObject);
+                }
+                break;
         }
     }
 
@@ -91,6 +115,7 @@ public class CustomerGroup : MonoBehaviour
                         if (agents[i].isOnNavMesh) //check whether or not agent is on navmesh
                         {
                             agents[i].SetDestination(assignedTable.Seats[i].position); //tell customer to go to their seat
+                            foundTable = true;
                         }
                         else
                         {
@@ -104,5 +129,44 @@ public class CustomerGroup : MonoBehaviour
                 waitCheckTimer = checkInterval; //if no table available check again after timer
             }
         }
+    }
+    private void HandleOrdering()
+    {
+        stateTimer -= Time.deltaTime;
+        if (stateTimer <= 0)
+        {
+            Debug.Log("Group ordered, waiting for food");
+            stateTimer = patience;
+        }
+    }
+
+    private void HandleEating()
+    {
+        stateTimer -= Time.deltaTime;
+        if (stateTimer <= 0)
+        {
+            if (assignedTable != null) assignedTable.ClearTable();
+
+            foreach (NavMeshAgent agent in agents)
+            {
+                if (agent.isOnNavMesh && SpawnLocation != null)
+                {
+                    agent.SetDestination(SpawnLocation.position);
+                }
+            }
+            currentState = GroupState.Leaving;
+        }
+    }
+    private bool CheckAllCustomersArrived()
+    {
+        foreach (NavMeshAgent agent in agents)
+        {
+            if (agent.pathPending) return false;
+
+            float distancetoTarget = Vector3.Distance(agent.transform.position, agent.destination);
+            if (distancetoTarget > agent.stoppingDistance + 0.1f)
+                return false;
+        }
+        return true;
     }
 }
