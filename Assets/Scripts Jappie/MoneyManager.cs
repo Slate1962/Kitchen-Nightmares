@@ -7,13 +7,18 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] private UImoney uiMoney;
     [SerializeField] private int currentMoney;
 
-
- 
-
     void Start()
     {
         currentMoney = startingMoney;
         uiMoney.MoneyText(currentMoney);
+    }
+
+    void Update()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Getmoney();
+        }
     }
 
     public void AddMoney(int amount)
@@ -22,32 +27,22 @@ public class MoneyManager : MonoBehaviour
         uiMoney.MoneyText(currentMoney);
     }
 
-    public void SpendMoney(int amount)
+public bool SpendMoney(int amount)
+{
+    if (currentMoney >= amount)
     {
-        if (currentMoney >= amount)
-        {
-            currentMoney -= amount;
-            uiMoney.MoneyText(currentMoney);
-        }
-        else
-        {
-            Debug.Log("Not enough money!");
-        }
+        currentMoney -= amount;
+        uiMoney.MoneyText(currentMoney);
+        return true;
     }
 
-
+    Debug.Log("Not enough money!");
+    return false;
+}
 
     public void Getmoney()
-    {
-    if (Keyboard.current.spaceKey.wasPressedThisFrame)
-    Debug.Log("Debug: Space key pressed");
     {
         AddMoney(50);
         Debug.Log("Debug: +50 money");
     }
-    }
-
-
-
-
 }
