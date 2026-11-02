@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8338309342741607350}
-  - component: {fileID: 4786278853081038361}
+  - component: {fileID: 7232839943669756336}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4786278853081038361
+--- !u!114 &7232839943669756336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,8 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3000897794921614659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 212acbf9c5a92e1459fe6b0cea2ea2b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f54f27628b12e141bdfefac1b0fa64b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreMenuManager
   coins: 0
   reputation: 0
+  maxReputation: 3
+  GameEndScreen: {fileID: 0}
+  PauseScreen: {fileID: 0}

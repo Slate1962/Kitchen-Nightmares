@@ -1391,8 +1391,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Sprint[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2020794622}
-        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+      - m_Target: {fileID: 837541231}
+        m_TargetAssemblyTypeName: ScoreMenuManager, Assembly-CSharp
         m_MethodName: OnPauseMenu
         m_Mode: 0
         m_Arguments:
@@ -1562,6 +1562,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837523181}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &837541231 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7232839943669756336, guid: c3e44120a2495df44882cba1a3c949f3, type: 3}
+  m_PrefabInstance: {fileID: 4088523935620437916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f54f27628b12e141bdfefac1b0fa64b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreMenuManager
 --- !u!1001 &893013659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3448,8 +3459,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2020794622}
-        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+      - m_Target: {fileID: 837541231}
+        m_TargetAssemblyTypeName: ScoreMenuManager, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
@@ -3581,8 +3592,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2020794622}
-        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+      - m_Target: {fileID: 837541231}
+        m_TargetAssemblyTypeName: ScoreMenuManager, Assembly-CSharp
         m_MethodName: ReloadScene
         m_Mode: 1
         m_Arguments:
@@ -4091,17 +4102,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98c7b265eeccc045baec5dc6822a544, type: 3}
---- !u!114 &2020794622 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4786278853081038361, guid: c3e44120a2495df44882cba1a3c949f3, type: 3}
-  m_PrefabInstance: {fileID: 4088523935620437916}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 212acbf9c5a92e1459fe6b0cea2ea2b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
 --- !u!1001 &2050527885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4242,6 +4242,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 730570855}
     - target: {fileID: 4786278853081038361, guid: c3e44120a2495df44882cba1a3c949f3, type: 3}
+      propertyPath: GameEndScreen
+      value: 
+      objectReference: {fileID: 223063540}
+    - target: {fileID: 7232839943669756336, guid: c3e44120a2495df44882cba1a3c949f3, type: 3}
+      propertyPath: PauseScreen
+      value: 
+      objectReference: {fileID: 730570855}
+    - target: {fileID: 7232839943669756336, guid: c3e44120a2495df44882cba1a3c949f3, type: 3}
       propertyPath: GameEndScreen
       value: 
       objectReference: {fileID: 223063540}

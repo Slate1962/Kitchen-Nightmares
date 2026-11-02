@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreMenuManager : MonoBehaviour
 {
     public int coins = 0;
     public int reputation;

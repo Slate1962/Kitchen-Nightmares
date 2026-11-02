@@ -27,7 +27,7 @@ public class CustomerGroup : MonoBehaviour
 
     private TableManager tableManager;
     private Table assignedTable;
-    private ScoreManager scoreManager;
+    private ScoreMenuManager scoreMenuManager;
 
     [Header("Timers")] //timers for different states of customer
     [SerializeField] private float orderDuration = 5f;
@@ -47,7 +47,7 @@ public class CustomerGroup : MonoBehaviour
     private void Start()
     {
         tableManager = FindAnyObjectByType<TableManager>();
-        scoreManager = FindAnyObjectByType<ScoreManager>();
+        scoreMenuManager = FindAnyObjectByType<ScoreMenuManager>();
         groupSize = Random.Range(1, 5);
 
         SpawnCustomers();
@@ -99,12 +99,12 @@ public class CustomerGroup : MonoBehaviour
                 {
                     if(isSatisfied)
                     {
-                        scoreManager.AddCoins(5);
-                        scoreManager.GainReputation();
+                        scoreMenuManager.AddCoins(5);
+                        scoreMenuManager.GainReputation();
                     }
                     else
                     {
-                        scoreManager.LoseReputation(1);
+                        scoreMenuManager.LoseReputation(1);
                     }
                         Destroy(gameObject);
                 }
