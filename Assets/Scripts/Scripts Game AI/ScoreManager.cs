@@ -1,14 +1,19 @@
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
     public int coins = 0;
     public int reputation;
-    private int maxReputation = 5;
+    [SerializeField]private int maxReputation = 3;
+
+    public GameObject GameEndScreen;
 
     private void Start()
     {
         reputation = maxReputation;
+        Time.timeScale = 1f;
     }
 
     private void Update()
@@ -35,7 +40,17 @@ public class ScoreManager : MonoBehaviour
 
         if(reputation <= 0)
         {
-            Debug.Log("Game Over");
+            GameOver();
         }    
+    }
+    public void GameOver()
+    {
+         Time.timeScale = 0f;
+         GameEndScreen.SetActive(true);
+         Debug.Log("Game Over");
+    }
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }
