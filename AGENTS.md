@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, IgnoreNavmesh, Water, UI, NPC
 - Active game object:
-  - Name: CrateCC
+  - Name: PlatesCounter_Visual
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
