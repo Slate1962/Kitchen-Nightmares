@@ -1,5 +1,5 @@
-using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
@@ -7,8 +7,10 @@ public class ScoreManager : MonoBehaviour
     public int coins = 0;
     public int reputation;
     [SerializeField]private int maxReputation = 3;
+    private bool isPaused = false;
 
     public GameObject GameEndScreen;
+    public GameObject PauseScreen;
 
     private void Start()
     {
@@ -42,6 +44,28 @@ public class ScoreManager : MonoBehaviour
         {
             GameOver();
         }    
+    }
+    public void OnPauseMenu(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        {
+            if (isPaused)
+                Resume();
+            else
+                Pause();
+        }
+    }
+    public void Pause()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        PauseScreen.SetActive(true);
+    }
+    public void Resume()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        PauseScreen.SetActive(false);
     }
     public void GameOver()
     {
