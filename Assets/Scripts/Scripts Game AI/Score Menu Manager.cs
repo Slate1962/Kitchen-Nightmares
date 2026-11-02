@@ -4,13 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class ScoreMenuManager : MonoBehaviour
 {
+    MenuManager menuManager;
+
     public int coins = 0;
     public int reputation;
     [SerializeField]private int maxReputation = 3;
-    private bool isPaused = false;
-
-    public GameObject GameEndScreen;
-    public GameObject PauseScreen;
 
     private void Start()
     {
@@ -42,39 +40,8 @@ public class ScoreMenuManager : MonoBehaviour
 
         if(reputation <= 0)
         {
-            GameOver();
+            menuManager.GameOver();
         }    
     }
-    public void OnPauseMenu(InputAction.CallbackContext context)
-    {
-        if (!context.performed) return;
-        {
-            if (isPaused)
-                Resume();
-            else
-                Pause();
-        }
-    }
-    public void Pause()
-    {
-        isPaused = true;
-        Time.timeScale = 0f;
-        PauseScreen.SetActive(true);
-    }
-    public void Resume()
-    {
-        isPaused = false;
-        Time.timeScale = 1f;
-        PauseScreen.SetActive(false);
-    }
-    public void GameOver()
-    {
-         Time.timeScale = 0f;
-         GameEndScreen.SetActive(true);
-         Debug.Log("Game Over");
-    }
-    public void ReloadScene()
-    {
-        SceneManager.LoadScene(0);
-    }
+
 }

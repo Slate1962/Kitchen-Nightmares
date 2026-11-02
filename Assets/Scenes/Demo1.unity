@@ -1391,8 +1391,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Sprint[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 837541231}
-        m_TargetAssemblyTypeName: ScoreMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 4088523935620437918}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: OnPauseMenu
         m_Mode: 0
         m_Arguments:
@@ -1567,7 +1567,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7232839943669756336, guid: c3e44120a2495df44882cba1a3c949f3, type: 3}
   m_PrefabInstance: {fileID: 4088523935620437916}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4088523935620437917}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f54f27628b12e141bdfefac1b0fa64b, type: 3}
@@ -4296,8 +4296,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3000897794921614659, guid: c3e44120a2495df44882cba1a3c949f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4088523935620437918}
   m_SourcePrefab: {fileID: 100100000, guid: c3e44120a2495df44882cba1a3c949f3, type: 3}
+--- !u!1 &4088523935620437917 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3000897794921614659, guid: c3e44120a2495df44882cba1a3c949f3, type: 3}
+  m_PrefabInstance: {fileID: 4088523935620437916}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4088523935620437918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088523935620437917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724b9bae5e17b9f42acf2646b0afabf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuManager
+  GameEndScreen: {fileID: 223063540}
+  PauseScreen: {fileID: 730570855}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
