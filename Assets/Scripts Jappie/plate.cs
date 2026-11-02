@@ -1,34 +1,54 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Plate : CarryableCC
 {
-    [SerializeField] private Transform plateIngredientPoint; // empty child on the plate
-    [SerializeField] private float stackHeight = 0.05f;      // vertical gap between layers
+    [Serializable]
+    public struct FoodVisual
+    {
+        public FoodSO food;        // which food this child represents
+        public GameObject visual;  // the disabled child on the plate
+    }
 
-    private List<FoodObjects> foods = new List<FoodObjects>();
+    [SerializeField] private List<FoodVisual> visuals;
 
-    public IReadOnlyList<FoodObjects> Foods => foods;
+    private List<FoodSO> foods = new List<FoodSO>();
 
-    // No duplicates: one tomato per plate
+    public IReadOnlyList<FoodSO> Foods => foods;
+
+    void Start()
+    {
+        foreach (FoodVisual v in visuals) v.visual.SetActive(false);
+    }
+
     public bool CanAddFood(FoodObjects food)
     {
         FoodSO so = food.GetKitchenObjectSO();
-        foreach (FoodObjects f in foods)
-        {
-            if (f.GetKitchenObjectSO() == so) return false;
-        }
-        return true;
+
+        if (!so.canBePlated) return false;
+        if (foods.Contains(so)) return false;   // no duplicates
+        return FindVisual(so) != null;          // plate must know how to show it
     }
 
     public bool TryAddFood(FoodObjects food)
     {
         if (!CanAddFood(food)) return false;
 
-        foods.Add(food);
-        food.transform.SetParent(plateIngredientPoint);
-        food.transform.localPosition = Vector3.up * stackHeight * (foods.Count - 1);
-        food.transform.localRotation = Quaternion.identity;
+        FoodSO so = food.GetKitchenObjectSO();
+        FindVisual(so).SetActive(true);
+        foods.Add(so);
+
+        food.DestroySelf(); // the loose object is no longer needed
         return true;
+    }
+
+    private GameObject FindVisual(FoodSO so)
+    {
+        foreach (FoodVisual v in visuals)
+        {
+            if (v.food == so) return v.visual;
+        }
+        return null;
     }
 }

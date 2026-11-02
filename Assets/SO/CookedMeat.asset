@@ -18,3 +18,4 @@ MonoBehaviour:
   friedVersion: {fileID: 0}
   slicedVersion: {fileID: 0}
   cuttingProgressMax: 0
+  canBePlated: 1

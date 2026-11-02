@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad616b6b57021744ba389315b6f5720, type: 3}
+  m_Name: Cheese sliced
+  m_EditorClassIdentifier: Assembly-CSharp::FoodSO
+  prefab: {fileID: 3812876574508226176, guid: 17cb28a1a37fd7f44ae6e1ad2aa9da78, type: 3}
+  foodName: Cheese sliced
+  foodSprite: {fileID: 0}
+  friedVersion: {fileID: 0}
+  slicedVersion: {fileID: 0}
+  cuttingProgressMax: 3
+  canBePlated: 1

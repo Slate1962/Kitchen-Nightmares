@@ -11,5 +11,7 @@ public class FoodSO : ScriptableObject
     public FoodSO slicedVersion;
     public int cuttingProgressMax = 3;
 
+    public bool canBePlated;
+
 }
 

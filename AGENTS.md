@@ -2,13 +2,13 @@
 - Project name: Kitchen-Nightmares
 - Unity version: Unity 6000.6.3f1
 - Active scene:
-  - Name: Jaspersandbox
+  - Name: Plate_Visual
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController
   - Layers:
     - Default, TransparentFX, Ignore Raycast, IgnoreNavmesh, Water, UI, NPC
 - Active game object:
-  - Name: PlatesCounter_Visual
+  - Name: Plate_Visual
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
