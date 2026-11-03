@@ -47,3 +47,8 @@ MonoBehaviour:
   currentState: 0
   groupSize: 0
   CustomerPrefab: {fileID: 9178455420516467155, guid: 4a3ddc59d0676d74aac40a74cba685d7, type: 3}
+  SpawnLocation: {fileID: 0}
+  orderDuration: 5
+  patience: 45
+  eatingDuration: 5
+  isSatisfied: 0
