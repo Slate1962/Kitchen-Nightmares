@@ -6,6 +6,7 @@ public class MenuManager : MonoBehaviour
 {
     private bool isPaused = false;
     public GameObject PauseScreen;
+    public GameObject SettingsUI;
 
     public void StartGame()
     {
@@ -29,6 +30,15 @@ public class MenuManager : MonoBehaviour
             Pause();
 
     }
+    public void SettingsMenuON()
+    {
+        SettingsUI.SetActive(true);
+    }
+    public void SettingsMenuOff()
+    {
+        SettingsUI.SetActive(false);
+    }
+
     public void Pause()
     {
         isPaused = true;
