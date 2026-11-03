@@ -1876,13 +1876,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904242622}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.3564326, y: -0.4869589, z: 0.22707261, w: 0.7643723}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -65, z: 0}
 --- !u!114 &904242625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4590,7 +4590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724b9bae5e17b9f42acf2646b0afabf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
-  GameEndScreen: {fileID: 223063540}
   PauseScreen: {fileID: 730570855}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
