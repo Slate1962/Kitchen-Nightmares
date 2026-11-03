@@ -62,8 +62,6 @@ MonoBehaviour:
     visual: {fileID: 2264130125080816022}
   - food: {fileID: 11400000, guid: 356137795007c47489d82c86fb32745c, type: 2}
     visual: {fileID: 6847970428303483887}
-  - food: {fileID: 0}
-    visual: {fileID: 0}
 --- !u!1 &8300068384519583697
 GameObject:
   m_ObjectHideFlags: 0

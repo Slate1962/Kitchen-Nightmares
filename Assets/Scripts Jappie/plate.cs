@@ -51,4 +51,14 @@ public class Plate : CarryableCC
         }
         return null;
     }
+
+    public void ClearContents()
+    {
+        foreach (FoodVisual v in visuals)
+        {
+        v.visual.SetActive(false);
+        }
+
+        foods.Clear();
+    }
 }
