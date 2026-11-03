@@ -10,6 +10,8 @@ public class ScoreMenuManager : MonoBehaviour
     public int reputation;
     [SerializeField]private int maxReputation = 3;
 
+    public GameObject GameEndScreen;
+
     private void Start()
     {
         reputation = maxReputation;
@@ -40,8 +42,9 @@ public class ScoreMenuManager : MonoBehaviour
 
         if(reputation <= 0)
         {
-            menuManager.GameOver();
+            Time.timeScale = 0f;
+            GameEndScreen.SetActive(true);
+            Debug.Log("Game Over");
         }    
     }
-
 }
