@@ -24,6 +24,7 @@ public class CustomerGroup : MonoBehaviour
 
     [Header("Destination")]
     public Transform SpawnLocation;
+    public Transform WaitingLocation;
 
     private TableManager tableManager;
     private Table assignedTable;
@@ -114,6 +115,14 @@ public class CustomerGroup : MonoBehaviour
 
     private void HandleWaiting()
     {
+        foreach (NavMeshAgent agent in agents)
+        {
+            if (agent.isOnNavMesh && SpawnLocation != null)
+            {
+                agent.SetDestination(WaitingLocation.position);
+            }
+        }
+
         waitCheckTimer -= Time.deltaTime;
         if (waitCheckTimer <= 0)
         {
