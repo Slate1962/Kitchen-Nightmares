@@ -2,7 +2,6 @@
 - Project name: Kitchen-Nightmares
 - Unity version: Unity 6000.6.3f1
 - Active scene:
-  - Name: Plate_Visual
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController
   - Layers:
