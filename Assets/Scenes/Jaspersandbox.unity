@@ -1083,7 +1083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b64f86155442d4781036bb3ab52298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingCounterUpgrade
-  cuttingCounter: {fileID: 0}
+  cuttingCounter: {fileID: 1689044879}
   moneyManager: {fileID: 1596376857}
 --- !u!1001 &1169110504
 PrefabInstance:
@@ -1142,6 +1142,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba0f78b6a6a41114f8cfc6fba0b3b18b, type: 3}
+--- !u!1 &1485024231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1485024232}
+  - component: {fileID: 1485024233}
+  m_Layer: 0
+  m_Name: Daymanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1485024232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485024231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.94514, y: -0, z: -5.24388}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1485024233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485024231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e52ad0019088154faa097c3cccf7122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DayManager
+  baseCustomers: 3
+  extraCustomersPerDay: 2
 --- !u!1 &1596376852
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,6 +1384,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30fe6ff6441d6944180bb87f315d6a81, type: 3}
+--- !u!114 &1689044879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8917418101015517859, guid: c1341026d84ae7c42a88d0e2fcb39a8c, type: 3}
+  m_PrefabInstance: {fileID: 1360129061137971164}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a39216b50765547941f0cad5dfbc26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CuttingCounter
 --- !u!1 &1692531746
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,3 +2426,4 @@ SceneRoots:
   - {fileID: 7708134914661972662}
   - {fileID: 151497092}
   - {fileID: 1360129061137971164}
+  - {fileID: 1485024232}
