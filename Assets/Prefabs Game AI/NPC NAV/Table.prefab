@@ -461,8 +461,8 @@ GameObject:
   - component: {fileID: 5158276135817776087}
   - component: {fileID: 3666537432323484624}
   - component: {fileID: 3579116277894918939}
-  - component: {fileID: 2240321756713239395}
   - component: {fileID: 4014552015237136792}
+  - component: {fileID: -8642183670402946858}
   m_Layer: 3
   m_Name: Table
   m_TagString: Untagged
@@ -587,20 +587,6 @@ MonoBehaviour:
   - {fileID: 7167250458266790575}
   - {fileID: 5872682852972899664}
   - {fileID: 1589248895673781434}
---- !u!114 &2240321756713239395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4302765241876075244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f57a64a8e5c48d342b594818281fd37e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TableCC
-  heldItem: {fileID: 0}
-  placePoint: {fileID: 8867725121151908618}
 --- !u!65 &4014552015237136792
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -622,6 +608,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 3, z: 2}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &-8642183670402946858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4302765241876075244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bee0c70a8b8d240833324b7a7c5561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomerTableCC
+  heldItem: {fileID: 0}
+  placePoint: {fileID: 8867725121151908618}
+  isCustomerWaiting: 1
 --- !u!1 &7107091204295396353
 GameObject:
   m_ObjectHideFlags: 0
