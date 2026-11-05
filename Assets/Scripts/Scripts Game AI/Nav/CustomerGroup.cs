@@ -166,6 +166,14 @@ public class CustomerGroup : MonoBehaviour
 
     private void HandleService()
     {
+        TableCC tableInteraction = assignedTable.GetComponent<TableCC>();
+
+        if (tableInteraction != null && tableInteraction.heldItem !=null)
+        {
+            ReceiveFood();
+            return;
+        }
+
         stateTimer -= Time.deltaTime;
         if (stateTimer <= 0)
         {
