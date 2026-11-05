@@ -18,13 +18,13 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void OnPauseMenu(InputAction.CallbackContext context)
+    public void OnPauseMenu(InputAction.CallbackContext context) //when pressing esc
     {
         if (!context.performed) return;
 
         if (SceneManager.GetActiveScene().name != "Demo1") return;
 
-        if (isPaused)
+        if (isPaused) //check whether to unpause or pause
             Resume();
         else
             Pause();
