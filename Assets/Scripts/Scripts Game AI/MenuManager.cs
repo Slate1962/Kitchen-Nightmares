@@ -30,6 +30,12 @@ public class MenuManager : MonoBehaviour
             Pause();
 
     }
+    public void OnRestartTrigger(InputAction.CallbackContext context) //press p
+    {
+        if (!context.performed) return;
+
+        ReloadScene();
+    }
     public void SettingsMenuON()
     {
         SettingsUI.SetActive(true);
