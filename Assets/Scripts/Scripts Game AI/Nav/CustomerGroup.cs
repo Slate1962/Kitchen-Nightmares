@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
-using System.Data;
-
 
 public class CustomerGroup : MonoBehaviour
 {
@@ -35,6 +33,9 @@ public class CustomerGroup : MonoBehaviour
     [SerializeField] private float patience = 45f;
     [SerializeField] private float eatingDuration = 5f;
 
+    [Header("Orders")] // NIEUW
+    [SerializeField] private List<OrderSO> possibleOrders; // sleep hier je OrderSO assets in
+
     [Header("CustomerStatus")]
     public bool isSatisfied = false;
 
@@ -44,6 +45,10 @@ public class CustomerGroup : MonoBehaviour
     private float stateTimer = 0f;
 
     private List<NavMeshAgent> agents = new List<NavMeshAgent>();
+
+    // NIEUW
+    private CustomerTableCC customerTable;
+    private OrderSO currentOrder;
 
     private void Start()
     {
@@ -98,16 +103,17 @@ public class CustomerGroup : MonoBehaviour
             case GroupState.Leaving:
                 if (CheckAllCustomersArrived())
                 {
-                    if(isSatisfied)
+                    if (isSatisfied)
                     {
-                        scoreMenuManager.AddCoins(5);
+                        // GEWIJZIGD: beloning uit de bestelling, 5 als die ontbreekt
+                        scoreMenuManager.AddCoins(currentOrder != null ? currentOrder.reward : 5);
                         scoreMenuManager.GainReputation();
                     }
                     else
                     {
                         scoreMenuManager.LoseReputation(1);
                     }
-                        Destroy(gameObject);
+                    Destroy(gameObject);
                 }
                 break;
         }
@@ -128,7 +134,7 @@ public class CustomerGroup : MonoBehaviour
         {
             assignedTable = tableManager.RequestTable(groupSize, transform.position);
 
-            if(assignedTable != null) //check if tables are available
+            if (assignedTable != null) //check if tables are available
             {
                 currentState = GroupState.walkingToTable; //stop looking for table
 
@@ -153,48 +159,65 @@ public class CustomerGroup : MonoBehaviour
             }
         }
     }
+
+    // GEWIJZIGD: kiest een bestelling en zet die op de tafel
     private void HandleOrdering()
     {
         stateTimer -= Time.deltaTime;
         if (stateTimer <= 0)
         {
-            Debug.Log("Group ordered, waiting for food");
+            customerTable = assignedTable.GetComponent<CustomerTableCC>();
+            if (customerTable == null)
+            {
+                Debug.LogError(assignedTable.name + " heeft geen CustomerTableCC!");
+                return;
+            }
+
+            if (possibleOrders == null || possibleOrders.Count == 0)
+            {
+                Debug.LogError("Geen OrderSO's ingesteld op " + name);
+                return;
+            }
+
+            currentOrder = possibleOrders[Random.Range(0, possibleOrders.Count)];
+            customerTable.SetOrder(currentOrder);
+            customerTable.OnOrderServed += OnServed;
+
+            Debug.Log("Group ordered " + currentOrder.orderName + ", waiting for food");
             currentState = GroupState.Service;
             stateTimer = patience;
         }
     }
 
+    // GEWIJZIGD: wacht alleen nog op de patience, het serveren gaat via OnServed
     private void HandleService()
     {
-        TableCC tableInteraction = assignedTable.GetComponent<TableCC>();
-
-        if (tableInteraction != null && tableInteraction.heldItem !=null)
-        {
-            ReceiveFood();
-            return;
-        }
-
         stateTimer -= Time.deltaTime;
         if (stateTimer <= 0)
         {
             Debug.Log("Waited too long for food");
+
+            ReleaseTable();
             if (assignedTable != null) assignedTable.ClearTable();
-            {
-                foreach (NavMeshAgent agent in agents)
-                {
-                    if (agent.isOnNavMesh && SpawnLocation != null)
-                    {
-                        agent.SetDestination(SpawnLocation.position);
-                    }
-                }
-                currentState = GroupState.Leaving;
-            }
+
+            SendAgentsAway();
+            currentState = GroupState.Leaving;
         }
     }
+
+    // GEWIJZIGD: test via het context-menu zonder echt bord
     [ContextMenu("Deliver Food")]
     public void ReceiveFood()
     {
-        if(currentState == GroupState.Service)
+        OnServed(currentOrder);
+    }
+
+    // NIEUW: wordt aangeroepen door CustomerTableCC als het juiste bord is geserveerd
+    private void OnServed(OrderSO order)
+    {
+        if (customerTable != null) customerTable.OnOrderServed -= OnServed;
+
+        if (currentState == GroupState.Service)
         {
             Debug.Log("Food Arrived");
             currentState = GroupState.Eating;
@@ -207,20 +230,44 @@ public class CustomerGroup : MonoBehaviour
         stateTimer -= Time.deltaTime;
         if (stateTimer <= 0)
         {
+            ReleaseTable();
             if (assignedTable != null) assignedTable.ClearTable();
 
             isSatisfied = true;
 
-            foreach (NavMeshAgent agent in agents)
-            {
-                if (agent.isOnNavMesh && SpawnLocation != null)
-                {
-                    agent.SetDestination(SpawnLocation.position);
-                }
-            }
+            SendAgentsAway();
             currentState = GroupState.Leaving;
         }
     }
+
+    // NIEUW: tafel loskoppelen van deze groep
+    private void ReleaseTable()
+    {
+        if (customerTable != null)
+        {
+            customerTable.OnOrderServed -= OnServed;
+            customerTable.SetOrder(null);
+        }
+    }
+
+    // NIEUW: dezelfde loop die eerder op twee plekken stond
+    private void SendAgentsAway()
+    {
+        foreach (NavMeshAgent agent in agents)
+        {
+            if (agent.isOnNavMesh && SpawnLocation != null)
+            {
+                agent.SetDestination(SpawnLocation.position);
+            }
+        }
+    }
+
+    // NIEUW: als de groep verdwijnt terwijl hij nog luistert
+    private void OnDestroy()
+    {
+        if (customerTable != null) customerTable.OnOrderServed -= OnServed;
+    }
+
     private bool CheckAllCustomersArrived()
     {
         float arrivalbuffer = (currentState == GroupState.Leaving) ? 2.0f : 5.0f;

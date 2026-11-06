@@ -1502,6 +1502,10 @@ PrefabInstance:
       propertyPath: placePoint
       value: 
       objectReference: {fileID: 701634257}
+    - target: {fileID: -8642183670402946858, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
+      propertyPath: currentOrder
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d8cde50a74651743abf0c2024f5d0da, type: 2}
     - target: {fileID: 4302765241876075244, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
       propertyPath: m_Name
       value: Table (2)
@@ -2416,6 +2420,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920337976}
   m_CullTransparentMesh: 1
+--- !u!1 &927790947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927790948}
+  - component: {fileID: 927790949}
+  m_Layer: 0
+  m_Name: DayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &927790948
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927790947}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.74953, y: 0, z: -4.00423}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &927790949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927790947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e52ad0019088154faa097c3cccf7122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DayManager
+  baseCustomers: 3
+  extraCustomersPerDay: 2
 --- !u!4 &935006808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5881917322126051640, guid: ba0f78b6a6a41114f8cfc6fba0b3b18b, type: 3}
@@ -2719,6 +2769,10 @@ PrefabInstance:
       propertyPath: placePoint
       value: 
       objectReference: {fileID: 748269134}
+    - target: {fileID: -8642183670402946858, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
+      propertyPath: currentOrder
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d8cde50a74651743abf0c2024f5d0da, type: 2}
     - target: {fileID: 4302765241876075244, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
       propertyPath: m_Name
       value: Table
@@ -3001,13 +3055,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
-    - {fileID: -8642183670402946858, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4302765241876075244, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1578741833}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
 --- !u!4 &1191248269 stripped
 Transform:
@@ -3019,7 +3069,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3579116277894918939, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
   m_PrefabInstance: {fileID: 1191248268}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1578741827}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47713c736b2e4614eadd3e789f86be87, type: 3}
@@ -3723,26 +3773,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574954323}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1578741827 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4302765241876075244, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
-  m_PrefabInstance: {fileID: 1191248268}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1578741833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1578741827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34bee0c70a8b8d240833324b7a7c5561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CustomerTableCC
-  heldItem: {fileID: 0}
-  placePoint: {fileID: 206195847}
-  isCustomerWaiting: 1
 --- !u!4 &1590850008 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7558724191470125338, guid: b530e06e2998b52469a8a41ed491d1de, type: 3}
@@ -4492,6 +4522,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 727950351}
     m_Modifications:
+    - target: {fileID: -8642183670402946858, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
+      propertyPath: currentOrder
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d8cde50a74651743abf0c2024f5d0da, type: 2}
     - target: {fileID: 4302765241876075244, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
       propertyPath: m_Name
       value: Table (1)
@@ -4547,9 +4581,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4302765241876075244, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1997911738}
-    - targetCorrespondingSourceObject: {fileID: 4302765241876075244, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1997911739}
   m_SourcePrefab: {fileID: 100100000, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
 --- !u!4 &1805563564 stripped
 Transform:
@@ -4944,20 +4975,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 4, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1997911739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997911734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f57a64a8e5c48d342b594818281fd37e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TableCC
-  heldItem: {fileID: 0}
-  placePoint: {fileID: 885268847}
 --- !u!114 &2000492725 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3579116277894918939, guid: bf9d5634e7337a94a92987891cf8f3c4, type: 3}
@@ -5529,3 +5546,4 @@ SceneRoots:
   - {fileID: 8089053774007072085}
   - {fileID: 2040504323825563660}
   - {fileID: 379620862}
+  - {fileID: 927790948}
