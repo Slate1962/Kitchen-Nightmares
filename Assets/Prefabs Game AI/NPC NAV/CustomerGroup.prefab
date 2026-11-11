@@ -52,4 +52,6 @@ MonoBehaviour:
   orderDuration: 5
   patience: 90
   eatingDuration: 5
+  possibleOrders:
+  - {fileID: 11400000, guid: 9d8cde50a74651743abf0c2024f5d0da, type: 2}
   isSatisfied: 0

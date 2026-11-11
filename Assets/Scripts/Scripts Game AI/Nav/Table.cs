@@ -12,13 +12,6 @@ public class Table : MonoBehaviour
         {
             isOccupied = true;
             currentCustomerGroupSize = groupSize;
-
-            CustomerTableCC tableCC = GetComponent<CustomerTableCC>();
-            if(tableCC != null)
-            {
-                tableCC.ResetCustomerWaiting();
-            }
-
             return true;
         }
         return false;
