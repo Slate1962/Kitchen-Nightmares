@@ -35,6 +35,13 @@ public class CustomerGroup : MonoBehaviour
     [SerializeField] private float patience = 45f;
     [SerializeField] private float eatingDuration = 5f;
 
+    [Header("Orders")]
+    [SerializeField] private List<OrderSO> possibleOrders; // sleep hier je OrderSO assets in
+
+    [Header("UI")]
+    [SerializeField] private OrderBubbleUI orderBubblePrefab; // NIEUW
+    [SerializeField] private Vector3 bubbleOffset = new Vector3(0f, 2.5f, 0f); // NIEUW
+
     [Header("CustomerStatus")]
     public bool isSatisfied = false;
 
@@ -44,6 +51,10 @@ public class CustomerGroup : MonoBehaviour
     private float stateTimer = 0f;
 
     private List<NavMeshAgent> agents = new List<NavMeshAgent>();
+
+    private CustomerTableCC customerTable;
+    private OrderSO currentOrder;
+    private OrderBubbleUI orderBubble; // NIEUW
 
     private void Start()
     {
@@ -100,7 +111,8 @@ public class CustomerGroup : MonoBehaviour
                 {
                     if(isSatisfied)
                     {
-                        scoreMenuManager.AddCoins(5);
+                        // beloning uit de bestelling, 5 als die ontbreekt
+                        scoreMenuManager.AddCoins(currentOrder != null ? currentOrder.reward : 5);
                         scoreMenuManager.GainReputation();
                     }
                     else
@@ -153,17 +165,39 @@ public class CustomerGroup : MonoBehaviour
             }
         }
     }
+
+    // kiest een bestelling, zet die op de tafel en toont de bubble
     private void HandleOrdering()
     {
         stateTimer -= Time.deltaTime;
         if (stateTimer <= 0)
         {
-            Debug.Log("Group ordered, waiting for food");
+            customerTable = assignedTable.GetComponent<CustomerTableCC>();
+            if (customerTable == null)
+            {
+                Debug.LogError(assignedTable.name + " heeft geen CustomerTableCC!");
+                return;
+            }
+
+            if (possibleOrders == null || possibleOrders.Count == 0)
+            {
+                Debug.LogError("Geen OrderSO's ingesteld op " + name);
+                return;
+            }
+
+            currentOrder = possibleOrders[Random.Range(0, possibleOrders.Count)];
+            customerTable.SetOrder(currentOrder);
+            customerTable.OnOrderServed += OnServed;
+
+            ShowOrderBubble(); // NIEUW
+
+            Debug.Log("Group ordered " + currentOrder.orderName + ", waiting for food");
             currentState = GroupState.Service;
             stateTimer = patience;
         }
     }
 
+    // wacht alleen nog op de patience, het serveren gaat via OnServed
     private void HandleService()
     {
         TableCC tableInteraction = assignedTable.GetComponent<TableCC>();
@@ -191,12 +225,23 @@ public class CustomerGroup : MonoBehaviour
             }
         }
     }
+
+    // test via het context-menu zonder echt bord
     [ContextMenu("Deliver Food")]
     public void ReceiveFood()
     {
-        if(currentState == GroupState.Service)
+        OnServed(currentOrder);
+    }
+
+    // wordt aangeroepen door CustomerTableCC als het juiste bord is geserveerd
+    private void OnServed(OrderSO order)
+    {
+        if (customerTable != null) customerTable.OnOrderServed -= OnServed;
+
+        if (currentState == GroupState.Service)
         {
             Debug.Log("Food Arrived");
+            HideOrderBubble(); // NIEUW
             currentState = GroupState.Eating;
             stateTimer = eatingDuration;
         }
@@ -221,6 +266,56 @@ public class CustomerGroup : MonoBehaviour
             currentState = GroupState.Leaving;
         }
     }
+
+    // NIEUW: bubble boven de tafel tonen
+    private void ShowOrderBubble()
+    {
+        if (orderBubblePrefab == null || assignedTable == null) return;
+
+        orderBubble = Instantiate(orderBubblePrefab, assignedTable.transform.position + bubbleOffset, Quaternion.identity);
+        orderBubble.Show(currentOrder);
+    }
+
+    // NIEUW: bubble weghalen
+    private void HideOrderBubble()
+    {
+        if (orderBubble != null)
+        {
+            Destroy(orderBubble.gameObject);
+            orderBubble = null;
+        }
+    }
+
+    // tafel loskoppelen van deze groep
+    private void ReleaseTable()
+    {
+        HideOrderBubble(); // NIEUW
+
+        if (customerTable != null)
+        {
+            customerTable.OnOrderServed -= OnServed;
+            customerTable.SetOrder(null);
+        }
+    }
+
+    private void SendAgentsAway()
+    {
+        foreach (NavMeshAgent agent in agents)
+        {
+            if (agent.isOnNavMesh && SpawnLocation != null)
+            {
+                agent.SetDestination(SpawnLocation.position);
+            }
+        }
+    }
+
+    // als de groep verdwijnt terwijl hij nog luistert
+    private void OnDestroy()
+    {
+        HideOrderBubble(); // NIEUW
+        if (customerTable != null) customerTable.OnOrderServed -= OnServed;
+    }
+
     private bool CheckAllCustomersArrived()
     {
         float arrivalbuffer = (currentState == GroupState.Leaving) ? 2.0f : 5.0f;
