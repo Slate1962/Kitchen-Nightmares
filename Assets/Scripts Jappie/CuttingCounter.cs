@@ -4,6 +4,7 @@ using UnityEngine;
 public class CuttingCounter : InteractableCC, IHasProgress
 {
     [SerializeField] private Transform cuttingPoint;
+    [SerializeField] private Animator animator;
 
     [Header("Upgrades")]
     [SerializeField] private float[] autoCutIntervals = { 0f, 2f, 1f }; // index = level, 0 = no auto-cut
@@ -118,6 +119,12 @@ public class CuttingCounter : InteractableCC, IHasProgress
         FoodSO currentSO = currentFood.GetKitchenObjectSO();
 
         cuttingProgress++;
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Cut");
+        }
+
         OnProgressChanged?.Invoke((float)cuttingProgress / currentSO.cuttingProgressMax);
 
         if (cuttingProgress >= currentSO.cuttingProgressMax)

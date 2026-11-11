@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     public float moveSpeed = 5f;
     public Transform frontPoint;
+    [SerializeField] private Animator animator;
     private List<InteractableCC> nearbyInteractables = new List<InteractableCC>();
 
     public CarryableCC HeldItem { get; private set; }
@@ -18,13 +19,10 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
-        Debug.Log("Touched: " + other.name);
         InteractableCC interactable = other.GetComponent<InteractableCC>();
         if (interactable != null)
         {
             nearbyInteractables.Add(interactable);
-            Debug.Log("Added: " + interactable.name);
         }
     }
 
@@ -52,28 +50,39 @@ public class PlayerMovement : MonoBehaviour
         return item;
     }
 
-InteractableCC GetClosestInteractable(bool alternate)
-{
-    InteractableCC closest = null;
-    float closestDistance = Mathf.Infinity;
-
-    foreach (InteractableCC interactable in nearbyInteractables)
+    InteractableCC GetClosestInteractable(bool alternate)
     {
-        bool usable = alternate
-            ? interactable.CanInteractAlternate(this)
-            : interactable.CanInteract(this);
-        if (!usable) continue;
+        InteractableCC closest = null;
+        float closestDistance = Mathf.Infinity;
 
-        float distance = Vector3.Distance(transform.position, interactable.transform.position);
-        if (distance < closestDistance)
+        foreach (InteractableCC interactable in nearbyInteractables)
         {
-            closest = interactable;
-            closestDistance = distance;
-        }
-    }
+            bool usable;
 
-    return closest;
-}
+            if (alternate)
+            {
+                usable = interactable.CanInteractAlternate(this);
+            }
+            else
+            {
+                usable = interactable.CanInteract(this);
+            }
+
+            if (!usable)
+            {
+                continue;
+            }
+
+            float distance = Vector3.Distance(transform.position, interactable.transform.position);
+            if (distance < closestDistance)
+            {
+                closest = interactable;
+                closestDistance = distance;
+            }
+        }
+
+        return closest;
+    }
 
     void Update()
     {
@@ -87,7 +96,14 @@ InteractableCC GetClosestInteractable(bool alternate)
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical);
 
-        if (direction.magnitude > 0.1f)
+        bool isWalking = direction.magnitude > 0.1f;
+
+        if (animator != null)
+        {
+            animator.SetBool("IsWalking", isWalking);
+        }
+
+        if (isWalking)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
@@ -96,15 +112,21 @@ InteractableCC GetClosestInteractable(bool alternate)
         controller.Move(direction * moveSpeed * Time.deltaTime);
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
-    {
-         InteractableCC target = GetClosestInteractable(false);
-        if (target != null) target.Interact(this);
-}
+        {
+            InteractableCC target = GetClosestInteractable(false);
+            if (target != null)
+            {
+                target.Interact(this);
+            }
+        }
 
         if (Keyboard.current.fKey.wasPressedThisFrame)
-    {
-    InteractableCC target = GetClosestInteractable(true);
-    if (target != null) target.InteractAlternate(this);
-    }
+        {
+            InteractableCC target = GetClosestInteractable(true);
+            if (target != null)
+            {
+                target.InteractAlternate(this);
+            }
+        }
     }
 }
