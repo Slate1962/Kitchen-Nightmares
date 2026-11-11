@@ -3,6 +3,7 @@ using UnityEngine;
 public class Crate : InteractableCC
 {
     public FoodSO food;
+    [SerializeField] private Animator animator;
 
     public override bool CanInteract(PlayerMovement player)
     {
@@ -28,5 +29,16 @@ public class Crate : InteractableCC
         }
 
         player.PickUp(foodObject);
+
+        Debug.Log("Crate Interact reached, animator = " + animator, this);
+
+        if (animator == null)
+        {
+            Debug.LogWarning(name + " has no Animator assigned", this);
+        }
+        else
+        {
+            animator.SetTrigger("OpenClose");
+        }
     }
 }
