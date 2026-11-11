@@ -10,15 +10,15 @@ public class CustomerTableCC : TableCC
         {
             Plate plate = player.HeldItem.GetComponent<Plate>();
 
+            // Check if holding a plate with food, and a customer is waiting
             if (plate != null && plate.Foods.Count > 0 && isCustomerWaiting)
             {
                 ServeCustomer();
                 plate.ClearContents();
+
+                return;
             }
         }
-
-        // If the code above hits "return;", it completely skips this bottom line.
-        // If it doesn't hit "return;", it does normal table placement.
         base.Interact(player);
     }
 
@@ -26,5 +26,11 @@ public class CustomerTableCC : TableCC
     {
         isCustomerWaiting = false;
         Debug.Log("Food served to customer!");
+    }
+
+    //Call this method when a new customer group sits down
+    public void ResetCustomerWaiting()
+    {
+        isCustomerWaiting = true;
     }
 }
