@@ -39,8 +39,8 @@ public class CustomerGroup : MonoBehaviour
     [SerializeField] private List<OrderSO> possibleOrders; // sleep hier je OrderSO assets in
 
     [Header("UI")]
-    [SerializeField] private OrderBubbleUI orderBubblePrefab; // NIEUW
-    [SerializeField] private Vector3 bubbleOffset = new Vector3(0f, 2.5f, 0f); // NIEUW
+    [SerializeField] private OrderBubbleUI orderBubblePrefab;
+    [SerializeField] private Vector3 bubbleOffset = new Vector3(0f, 2.5f, 0f);
 
     [Header("CustomerStatus")]
     public bool isSatisfied = false;
@@ -54,14 +54,16 @@ public class CustomerGroup : MonoBehaviour
 
     private CustomerTableCC customerTable;
     private OrderSO currentOrder;
-    private OrderBubbleUI orderBubble; // NIEUW
+    private OrderBubbleUI orderBubble;
+    private DayManager dayManager;
 
     private void Start()
     {
         tableManager = FindAnyObjectByType<TableManager>();
         scoreMenuManager = FindAnyObjectByType<ScoreMenuManager>();
-        groupSize = Random.Range(1, 5);
+        dayManager = FindAnyObjectByType<DayManager>();
 
+        groupSize = Random.Range(1, 5);
         SpawnCustomers();
     }
 
@@ -119,6 +121,8 @@ public class CustomerGroup : MonoBehaviour
                     {
                         scoreMenuManager.LoseReputation(1);
                     }
+                    if (dayManager != null) dayManager.CustomerFinished();
+
                         Destroy(gameObject);
                 }
                 break;
@@ -189,7 +193,7 @@ public class CustomerGroup : MonoBehaviour
             customerTable.SetOrder(currentOrder);
             customerTable.OnOrderServed += OnServed;
 
-            ShowOrderBubble(); // NIEUW
+            ShowOrderBubble();
 
             Debug.Log("Group ordered " + currentOrder.orderName + ", waiting for food");
             currentState = GroupState.Service;
@@ -241,7 +245,7 @@ public class CustomerGroup : MonoBehaviour
         if (currentState == GroupState.Service)
         {
             Debug.Log("Food Arrived");
-            HideOrderBubble(); // NIEUW
+            HideOrderBubble();
             currentState = GroupState.Eating;
             stateTimer = eatingDuration;
         }
@@ -267,7 +271,7 @@ public class CustomerGroup : MonoBehaviour
         }
     }
 
-    // NIEUW: bubble boven de tafel tonen
+    //bubble boven de tafel tonen
     private void ShowOrderBubble()
     {
         if (orderBubblePrefab == null || assignedTable == null) return;
@@ -276,7 +280,7 @@ public class CustomerGroup : MonoBehaviour
         orderBubble.Show(currentOrder);
     }
 
-    // NIEUW: bubble weghalen
+    //bubble weghalen
     private void HideOrderBubble()
     {
         if (orderBubble != null)
@@ -289,7 +293,7 @@ public class CustomerGroup : MonoBehaviour
     // tafel loskoppelen van deze groep
     private void ReleaseTable()
     {
-        HideOrderBubble(); // NIEUW
+        HideOrderBubble();
 
         if (customerTable != null)
         {
@@ -312,7 +316,7 @@ public class CustomerGroup : MonoBehaviour
     // als de groep verdwijnt terwijl hij nog luistert
     private void OnDestroy()
     {
-        HideOrderBubble(); // NIEUW
+        HideOrderBubble();
         if (customerTable != null) customerTable.OnOrderServed -= OnServed;
     }
 
