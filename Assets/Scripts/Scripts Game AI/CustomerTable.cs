@@ -5,11 +5,11 @@ public class CustomerTableCC : TableCC
 {
     public bool isCustomerWaiting = true;
 
-    // 1. Add the missing order reference and event
+    // Add the missing order reference and event
     private OrderSO expectedOrder;
     public event Action<OrderSO> OnOrderServed;
 
-    // 2. Add the SetOrder method called by CustomerGroup
+    // Add the SetOrder method called by CustomerGroup
     public void SetOrder(OrderSO order)
     {
         expectedOrder = order;
@@ -27,13 +27,8 @@ public class CustomerTableCC : TableCC
                 ServeCustomer();
                 plate.ClearContents();
 
-                // Added the return statement here based on your comment below
-                return;
             }
         }
-
-        // If the code above hits "return;", it completely skips this bottom line.
-        // If it doesn't hit "return;", it does normal table placement.
         base.Interact(player);
     }
 
@@ -42,7 +37,7 @@ public class CustomerTableCC : TableCC
         isCustomerWaiting = false;
         Debug.Log("Food served to customer!");
 
-        // 3. Trigger the event to let CustomerGroup know the food arrived
+        //Trigger the event to let CustomerGroup know the food arrived
         OnOrderServed?.Invoke(expectedOrder);
     }
 }

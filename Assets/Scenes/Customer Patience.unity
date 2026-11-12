@@ -397,15 +397,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7957575477499125554, guid: 7b2524ddcd95f8444a6c381139560b76, type: 3}
       propertyPath: m_Color.g
-      value: 0.14509805
+      value: 0.9960785
       objectReference: {fileID: 0}
     - target: {fileID: 7957575477499125554, guid: 7b2524ddcd95f8444a6c381139560b76, type: 3}
       propertyPath: m_Color.r
-      value: 0.9921569
+      value: 0.14509805
       objectReference: {fileID: 0}
     - target: {fileID: 7957575477499125554, guid: 7b2524ddcd95f8444a6c381139560b76, type: 3}
       propertyPath: m_FillAmount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8484523015750750593, guid: 7b2524ddcd95f8444a6c381139560b76, type: 3}
       propertyPath: m_Pivot.x
