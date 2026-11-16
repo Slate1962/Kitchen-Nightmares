@@ -1464,6 +1464,7 @@ MonoBehaviour:
   waitingLocation: {fileID: 8089053774007072086}
   minSpawnDelay: 8
   maxSpawnDelay: 20
+  spawnInfinitely: 1
 --- !u!1001 &542241725
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,3 +1,5 @@
+/*
+
 using System.Threading;
 using Unity.GraphToolkit.Editor.GraphVisualization;
 using UnityEngine;
@@ -24,3 +26,4 @@ public class NavTestController : MonoBehaviour
         }
     }
 }
+*/

@@ -13,6 +13,9 @@ public class CustomerSpawner : MonoBehaviour
     [SerializeField] private float minSpawnDelay = 5f;
     [SerializeField] private float maxSpawnDelay = 20f;
 
+    [Header("Settings")]
+    [SerializeField] private bool spawnInfinitely = false;
+
     private Coroutine spawnCoroutine;
 
     private void Start()
@@ -59,15 +62,18 @@ public class CustomerSpawner : MonoBehaviour
         }
     }
 
+    // Dit is nu je enige SpawnRoutine, die zowel de oneindige als de gelimiteerde logic afhandelt
     private IEnumerator SpawnRoutine(int amountToSpawn)
     {
-        for (int i = 0; i < amountToSpawn; i++)
+        // If true, loop forever. If false, run your normal DayManager amount.
+        while (spawnInfinitely || amountToSpawn > 0)
         {
-            // Wacht een willekeurige tijd tussen de spawns
             float waitTime = Random.Range(minSpawnDelay, maxSpawnDelay);
             yield return new WaitForSeconds(waitTime);
 
             SpawnGroup();
+
+            if (!spawnInfinitely) amountToSpawn--;
         }
     }
 

@@ -8,6 +8,9 @@ public class DayManager : MonoBehaviour
     [SerializeField] private int baseCustomers = 3;          // klanten op dag 1
     [SerializeField] private int extraCustomersPerDay = 2;   // erbij per dag
 
+    [Header("Settings")]
+    [SerializeField] private bool infiniteDay = false;
+
     public int CurrentDay { get; private set; } = 1;
     public int CustomersToday => baseCustomers + extraCustomersPerDay * (CurrentDay - 1);
     public int CustomersLeft => CustomersToday - customersDone;
@@ -38,7 +41,12 @@ public class DayManager : MonoBehaviour
         if (!dayRunning) return;
 
         customersDone++;
-        if (customersDone >= CustomersToday) EndDay();
+
+        // Stop de dag ALLEEN als infiniteDay uit staat
+        if (!infiniteDay && customersDone >= CustomersToday)
+        {
+            EndDay();
+        }
     }
 
     public void NextDay()
