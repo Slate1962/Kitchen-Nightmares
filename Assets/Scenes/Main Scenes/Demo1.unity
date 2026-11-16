@@ -2816,6 +2816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DayManager
   baseCustomers: 3
   extraCustomersPerDay: 2
+  infiniteDay: 1
 --- !u!4 &935006808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5881917322126051640, guid: ba0f78b6a6a41114f8cfc6fba0b3b18b, type: 3}
