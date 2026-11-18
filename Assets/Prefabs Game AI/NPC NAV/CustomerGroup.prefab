@@ -50,8 +50,10 @@ MonoBehaviour:
   SpawnLocation: {fileID: 4881933754944620942, guid: 2d681dd9119c1394089c1cf0c34ab3e3, type: 3}
   WaitingLocation: {fileID: 9047074317222112017, guid: 6c2328876c2445945b9f3549b1a699e9, type: 3}
   orderDuration: 5
-  patience: 90
+  patience: 80
   eatingDuration: 5
   possibleOrders:
   - {fileID: 11400000, guid: 9d8cde50a74651743abf0c2024f5d0da, type: 2}
+  orderBubblePrefab: {fileID: 0}
+  bubbleOffset: {x: 0, y: 2.5, z: 0}
   isSatisfied: 0
